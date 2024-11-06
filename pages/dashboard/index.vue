@@ -1,7 +1,24 @@
 <script lang="ts" setup>
 import { products } from '~/commons/data';
+
+const router = useRouter()
+
+const onClickCreateProduct = () => {
+    console.log("Pindah ke dashboard/create");
+
+    router.push('/dashboard/create')
+}
 </script>
 <template>
+    <div class="flex flex-col gap-4">
+        <div class="flex flex-row justify-between">
+            <h1 class="text-2xl font-semibold">List Barang</h1>
+            <button class="min-w[120px] bg-blue-500 text-white p-2 rounded-"
+            v-on:click="onClickCreateProduct"
+            >
+                Tambah Barang
+            </button>
+        </div>
     <table class="w-full border-">
         <thead class="border-b-2">
             <tr>
@@ -42,4 +59,5 @@ import { products } from '~/commons/data';
             </tr>
         </tbody>
     </table>
+</div>
 </template>
