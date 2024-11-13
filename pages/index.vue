@@ -1,6 +1,14 @@
 <script lang="ts" setup>
 import { products } from '~/commons/data';
 
+const client = useSupabaseClient()
+
+const { data: products_data } = await useAsyncData('product', async () => {
+  const { data } = await client.from('product').select()
+
+  return data
+})
+
 </script>
 
 <template>

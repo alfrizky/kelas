@@ -1,24 +1,20 @@
 <script setup lang="ts">
-import { products } from '~/commons/data';
-
 const router = useRouter()
 
-const onClickCreateProduct = () => {
-  console.log("Pindah ke dashboard/create");
-
-  router.push('/dashboard/create')
+const onClickCreateTransaction = () => {
+  router.push('/dashboard/transaction/create')
 }
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
     <div class="flex flex-row justify-between">
-      <h1 class="text-2xl font-semibold">List Barang</h1>
+      <h1 class="text-2xl font-semibold">List Transaksi</h1>
       <button 
         class="min-w-[120px] bg-blue-500 text-white p-2 rounded-lg" 
-        v-on:click="onClickCreateProduct"
+        v-on:click="onClickCreateTransaction"
       >
-        Tambah Barang
+        Tambah Transaksi
       </button>
     </div>
 
@@ -26,13 +22,13 @@ const onClickCreateProduct = () => {
       <thead class="border-b-2">
         <tr>
           <th scope="col" class="text-left px-6 py-3">
-            Nama Produk
+            Id Transaksi
           </th>
           <th scope="col" class="text-left px-6 py-3">
-            Harga
+            Daftar Belanja
           </th>
           <th scope="col" class="text-left px-6 py-3">
-            Jumlah Stok
+            Total Harga
           </th>
           <th scope="col" class="text-left px-6 py-3">
             Action
@@ -40,22 +36,21 @@ const onClickCreateProduct = () => {
         </tr>
       </thead>
       <tbody>
-        <tr 
-          class="border-b-2"
-          v-for="(product, index) in products"
-          :key="index"
-        >
+        <tr class="border-b-2">
           <th scope="row" class="px-6 py-4 font-medium text-left">
-            {{ product.title }}
+            Transaksi 1
           </th>
           <td class="px-6 py-4 text-left">
-            {{ product.price }}
+            <ul>
+              <li>Sepatu x 1 = Rp200.000</li>
+              <li>Kaos x 2 = Rp100.000</li>
+            </ul>
           </td>
           <td class="px-6 py-4 text-left">
-            {{ product.stock }}
+            Rp300.000
           </td>
           <td class="px-6 py-4 text-left">
-            <NuxtLink :to="`/dashboard/edit/${product.id}`" class="text-blue-500">
+            <NuxtLink to="/dashboard/transaction/edit/1" class="text-blue-500">
               Edit
             </NuxtLink>
           </td>
