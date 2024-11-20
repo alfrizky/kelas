@@ -1,13 +1,48 @@
 <script setup lang="ts">
-import { products } from '~/commons/data';
-
+const client = useSupabaseClient()
 const router = useRouter()
+
+const listProducts = ref<any>([])
+
+const getProduct = async () => {
+  const { data: products }: { data: any } = await useAsyncData('product', async () => {
+    const { data } = await client.from('product').select().order('created_at', { ascending: true })
+  
+    return data
+  })
+  
+  listProducts.value = products.value
+}
 
 const onClickCreateProduct = () => {
   console.log("Pindah ke dashboard/create");
 
   router.push('/dashboard/create')
 }
+
+const onClickDeleteProduct = async (id: number) => {
+  let title = 'Are you sure you want to delete this product?'
+  
+  if (confirm(title)) {
+    const { data: deletedProduct }: { data: any } = await useAsyncData('product', async () => {
+      const { data } = await client.from('product').delete().eq('id', id)
+
+      return data
+    })
+
+    if (deletedProduct) {
+      await getProduct()
+    }
+    
+  } {
+    console.log('No');
+  }
+}
+
+onMounted(async () => {
+  await nextTick()
+  await getProduct()
+})
 </script>
 
 <template>
@@ -42,14 +77,14 @@ const onClickCreateProduct = () => {
       <tbody>
         <tr 
           class="border-b-2"
-          v-for="(product, index) in products"
+          v-for="(product, index) in listProducts"
           :key="index"
         >
           <th scope="row" class="px-6 py-4 font-medium text-left">
             {{ product.title }}
           </th>
           <td class="px-6 py-4 text-left">
-            {{ product.price }}
+            Rp{{ product.price }}
           </td>
           <td class="px-6 py-4 text-left">
             {{ product.stock }}
@@ -58,6 +93,10 @@ const onClickCreateProduct = () => {
             <NuxtLink :to="`/dashboard/edit/${product.id}`" class="text-blue-500">
               Edit
             </NuxtLink>
+
+            <div class="text-red-500 cursor-pointer" @click="onClickDeleteProduct(product.id)">
+              Delete
+            </div>
           </td>
         </tr>
       </tbody>

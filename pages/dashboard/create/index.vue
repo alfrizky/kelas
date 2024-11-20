@@ -6,6 +6,8 @@ const onClickCancel = () => {
 
   router.back()
 }
+
+
 </script>
 
 <template>
@@ -20,12 +22,14 @@ const onClickCancel = () => {
           class="p-2 border-2 border-slate-400 rounded-md" 
           placeholder="Judul barang" 
           type="text"
+          v-model="title"
         >
         
         <textarea
           class="p-2 border-2 border-slate-400 rounded-md" 
           placeholder="Deskripsi barang" 
           type="text"
+          v-model="description"
         ></textarea>
 
         <div class="flex flex-row gap-2 items-center w-full">
@@ -33,12 +37,14 @@ const onClickCancel = () => {
             class="w-full p-2 border-2 border-slate-400 rounded-md" 
             placeholder="Harga barang" 
             type="number"
+            v-model="price"
           >
           
           <input
             class="w-full p-2 border-2 border-slate-400 rounded-md" 
             placeholder="Stok barang" 
             type="number"
+            v-model="stock"
           >
         </div>
 
@@ -48,7 +54,8 @@ const onClickCancel = () => {
             name="image"
             class="p-2 border-2 border-slate-400 rounded-md" 
             placeholder="Gambar barang" 
-            type="file"
+            type="text"
+            v-model="image"
           >
         </div>
 
@@ -60,7 +67,8 @@ const onClickCancel = () => {
           >
             Batal
           </button>
-          <button type="button" class="w-fit bg-blue-500 text-white p-2 rounded-lg px-4">
+          <button type="button" class="w-fit bg-blue-500 text-white p-2 rounded-lg px-4"
+            @click="onSubmit">
             Simpan Barang
           </button>
         </div>
