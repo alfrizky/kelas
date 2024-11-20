@@ -18,7 +18,7 @@ const { data: products_data } = await useAsyncData('product', async () => {
     <ul class="flex flex-row flex-wrap gap-2">
       <li 
         class="p-2 rounded-md w-[150px] h-auto shadow-lg transition-transform transform hover:scale-105" 
-        v-for="(product, index) in products_data"
+        v-for="(product, index) in products"
         :key="index"
       >
         <NuxtLink :to="`/detail/${product.id}`">
