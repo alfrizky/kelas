@@ -44,7 +44,7 @@ const signOut = async () => {
     <div class="flex flex-col w-[480px] shadow-lg rounded-lg p-6 mx-auto gap-4">
       <div class="flex flex-col gap-1">
         <h1 class="text-2xl font-semibold">
-         Hello, {{ name }}
+         Haii , {{ name }}
         </h1>
         <span class="text-lg">{{ email }}</span>
       </div>
