@@ -6,7 +6,7 @@ const router = useRouter()
 const productId = route.params.id
 
 const title = ref('')
-const description = ref('')
+const desc = ref('')
 const price = ref(0)
 const stock = ref(0)
 const image = ref('')
@@ -16,7 +16,7 @@ const { data: productById }: { data: any } = await useAsyncData('product', async
 
   if (data) {
     title.value = data[0].title
-    description.value = data[0].description
+    desc.value = data[0].desc
     price.value = data[0].price
     stock.value = data[0].stock
     image.value = data[0].image
@@ -31,7 +31,7 @@ const onSubmit = async () => {
       .from('product')
       .update({ 
         title: title.value,
-        description: description.value, 
+        desc: desc.value, 
         price: price.value, 
         stock: stock.value, 
         image: image.value,
@@ -82,7 +82,7 @@ const onClickCancel = () => {
             class="p-2 border-2 border-slate-400 rounded-md" 
             placeholder="Deskripsi barang" 
             type="text"
-            v-model="description"
+            v-model="desc"
           ></textarea>
         </div>
 
