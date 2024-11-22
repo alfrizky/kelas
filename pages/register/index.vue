@@ -1,5 +1,4 @@
-<script lang="ts" setup>
-
+<script setup lang="ts">
 const client = useSupabaseClient()
 
 const name = ref('')
@@ -8,15 +7,15 @@ const password = ref('')
 const errorMsg = ref('')
 
 const onClickRegister = async () => {
-  try {
-    const { data, error: error_register } = await client.auth.signUp({
-      email : email.value,
-      password : password.value,
+  try{
+    const { data, error: error_register} = await client.auth.signUp({
+      email: email.value,
+      password: password.value,
       options: {
         data: {
-          name : name.value
+          name: name.value
         }
-       }
+      }
     })
 
     if (data.user) {
@@ -30,13 +29,6 @@ const onClickRegister = async () => {
     alert(error.error_description || error.message)
   }
 }
-
-const { data: products_data } = await useAsyncData('product', async () => {
-  const { data } = await client.from('product').select()
-
-  return data
-})
-
 </script>
 
 <template>
@@ -76,12 +68,12 @@ const { data: products_data } = await useAsyncData('product', async () => {
           >
         </div>
         
-        <button type="submit" class="min-w-[120px] text-lg bg-blue-500 text-white p-2 rounded-lg">
+        <button class="min-w-[120px] text-lg bg-blue-500 text-white p-2 rounded-lg">
           Register
         </button>
 
         <p v-if="errorMsg" class="text-red-500">
-          {{ errorMsg }}
+          {{  errorMsg }}
         </p>
 
         <div class="text-md text-center mt-2">
@@ -96,5 +88,6 @@ const { data: products_data } = await useAsyncData('product', async () => {
       </div>
     </form>
     </div>
+    
   </div>
 </template>
