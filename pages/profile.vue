@@ -21,7 +21,7 @@ if (user.value){
 
 const signOut = async () => {
   try{
-    const title = 'Are you sure you want to logout?'
+    const title = 'Yakin mau logout nih??'
     if (confirm(title)) {
       const { error } = await client.auth.signOut()
       if (error) {
