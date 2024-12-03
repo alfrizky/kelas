@@ -1,9 +1,36 @@
 <script setup lang="ts">
+
+const client = useSupabaseClient()
 const router = useRouter()
+
+const transactions = ref([]) 
 
 const onClickCreateTransaction = () => {
   router.push('/dashboard/transaction/create')
 }
+
+onMounted(async () => {
+  try {
+    const { data } = await client.from('transaction_user')
+      .select(`
+        id,
+        user,
+        total_price,
+        created_at,
+        transaction (
+          product (*),
+          total_price,
+          qty_product
+        )
+      `)
+      .order('created_at', { ascending: true })
+      
+    return transactions.value = data
+  } catch (error) {
+    alert(`Failed to fetch transaction: ${error}`)
+    console.error('Failed to fetch transaction', error)
+  }
+})
 </script>
 
 <template>
@@ -36,18 +63,17 @@ const onClickCreateTransaction = () => {
         </tr>
       </thead>
       <tbody>
-        <tr class="border-b-2">
+        <tr class="border-b-2" v-for="(item, idx) in transactions" :key="idx">
           <th scope="row" class="px-6 py-4 font-medium text-left">
-            Transaksi 1
+            Transaksi {{ item.id }}
           </th>
           <td class="px-6 py-4 text-left">
-            <ul>
-              <li>Sepatu x 1 = Rp200.000</li>
-              <li>Kaos x 2 = Rp100.000</li>
+            <ul v-for="(product, index) in item.transaction" :key="index">
+              <li>{{ product.product.title }} x {{ product.qty_product }} = {{ product.total_price }}</li>
             </ul>
           </td>
           <td class="px-6 py-4 text-left">
-            Rp300.000
+            Rp{{ item.total_price }}
           </td>
           <td class="px-6 py-4 text-left">
             <NuxtLink to="/dashboard/transaction/edit/1" class="text-blue-500">

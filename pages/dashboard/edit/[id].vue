@@ -34,7 +34,7 @@ const onSubmit = async () => {
         desc: desc.value, 
         price: price.value, 
         stock: stock.value, 
-        image: image.value,
+        image: image.value, 
       })
       .eq('id', productId)
       .select()

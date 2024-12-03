@@ -9,7 +9,7 @@ const onClickCancel = () => {
 }
 
 const title = ref('')
-const description = ref('')
+const desc = ref('')
 const price = ref(0)
 const stock = ref(0)
 const image = ref('')
@@ -21,7 +21,7 @@ const onSubmit = async () => {
       .insert(
         {
           "title": title.value,
-          "description": description.value,
+          "description": desc.value,
           "price": price.value,
           "stock": stock.value,
           "image": image.value
@@ -65,7 +65,7 @@ const onSubmit = async () => {
             class="p-2 border-2 border-slate-400 rounded-md" 
             placeholder="Deskripsi barang" 
             type="text"
-            v-model="description"
+            v-model="desc"
           ></textarea>
         </div>
 

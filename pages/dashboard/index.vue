@@ -15,8 +15,7 @@ const getProduct = async () => {
 }
 
 const onClickCreateProduct = () => {
-  console.log("Pindah ke dashboard/create");
-
+  console.log("Pindah ke dashboard/create")
   router.push('/dashboard/create')
 }
 
@@ -33,7 +32,7 @@ const onClickDeleteProduct = async (id: number) => {
     if (deletedProduct) {
       await getProduct()
     }
-    
+
   } {
     console.log('No');
   }

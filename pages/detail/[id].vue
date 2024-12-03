@@ -22,7 +22,7 @@ const { data: productById }: { data: any } = await useAsyncData('product', async
       <h1 class="text-2xl">{{ productById[0].title }}</h1>
       <p class="text-lg">Harga: Rp{{ productById[0].price }}</p>
       <p class="text-lg">Stok Barang: {{ productById[0].stock }}</p>
-      <p class="text-lg">{{ productById[0].desc }}</p>
+      <p class="text-lg">{{ productById[0].description }}</p>
 
       <div class="flex flex-row gap-2">
         <button class="min-w-[120px] bg-blue-500 text-white p-2 rounded-lg">

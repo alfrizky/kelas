@@ -1,4 +1,4 @@
-<script setup Lang="ts">
+<script setup lang="ts">
 const client = useSupabaseClient()
 
 const email = ref('')
@@ -7,23 +7,26 @@ const errorMsg = ref('')
 
 const onClickLogin = async () => {
   try {
-    const { data, error: error_Login } = await client.auth.signInWithPassword({
+    const { data, error: error_login } = await client.auth.signInWithPassword({
       email: email.value,
       password: password.value
     })
-    if(data.user){
+  
+    if (data.user) {
       navigateTo('profile')
     }
-
-    if (error_Login) {
-      errorMsg.value =error_Login.message
+  
+    if (error_login) {
+      errorMsg.value = error_login.message
     }
-  }catch (error) {
+  } catch (error: any) {
     alert(error.error_description || error.message)
   }
-   }
+
+}
 
 </script>
+
 <template>
   <div class="w-full">
     <div class="flex flex-col gap-4 w-[480px] mx-auto p-8  shadow-xl rounded-lg">
@@ -33,22 +36,22 @@ const onClickLogin = async () => {
         <div class="flex flex-col gap-2">
           <div class="flex flex-col gap-1">
             <label for="email">Email</label>
-            <input
-             name="email" 
-             type="email" 
-             class="w-full border-2 border-slate-600 p-2 rounded-lg"
-             v-model="email"
-             >
+            <input 
+              name="email" 
+              type="email" 
+              class="w-full border-2 border-slate-600 p-2 rounded-lg"
+              v-model="email"
+            >
           </div>
 
           <div class="flex flex-col gap-1">
             <label for="password">Password</label>
             <input 
-            name="password"
-             type="password"
+              name="password" 
+              type="password"
               class="w-full border-2 border-slate-600 p-2 rounded-lg"
               v-model="password"
-              >
+            >
           </div>
           
           <button class="min-w-[120px] text-lg bg-blue-500 text-white p-2 rounded-lg">
